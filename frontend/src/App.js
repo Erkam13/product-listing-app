@@ -44,7 +44,6 @@ function App() {
           <SwiperSlide key={index}>
             <div
               style={{
-                border: "1px solid #ccc",
                 borderRadius: "10px",
                 padding: "10px",
                 textAlign: "left",
