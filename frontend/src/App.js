@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://product-listing-app-l5v8.onrender.com/products")
+      axios.get("https://product-listing-app-l5v8.onrender.com/products")
       .then((response) => {
         setProducts(response.data);
       })
