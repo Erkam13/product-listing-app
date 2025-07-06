@@ -8,17 +8,32 @@ import "./App.css";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [selectedColors, setSelectedColors] = useState({});
 
   useEffect(() => {
     axios
-      axios.get("https://product-listing-app-l5v8.onrender.com/products")
+      .get("https://product-listing-app-l5v8.onrender.com/products")
       .then((response) => {
         setProducts(response.data);
+
+        // Her ürün için default renk (yellow)
+        const defaultColors = {};
+        response.data.forEach((_, index) => {
+          defaultColors[index] = "yellow";
+        });
+        setSelectedColors(defaultColors);
       })
       .catch((error) => {
         console.error("API çağrısı hatası:", error);
       });
   }, []);
+
+  const handleColorChange = (index, color) => {
+    setSelectedColors((prevColors) => ({
+      ...prevColors,
+      [index]: color,
+    }));
+  };
 
   return (
     <div className="App">
@@ -50,8 +65,8 @@ function App() {
               }}
             >
               <img
-                src={product.images.yellow}
-                alt={product.name}
+                src={product.images[selectedColors[index]]}
+                alt={`${product.name} ${selectedColors[index]}`}
                 style={{
                   width: "100%",
                   borderRadius: "10px",
@@ -61,34 +76,29 @@ function App() {
               <h3>{product.name}</h3>
               <p>${product.price} USD</p>
               <div style={{ display: "flex", gap: "8px", margin: "10px 0" }}>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#d4af37",
-                    border: "2px solid black",
-                    borderRadius: "50%",
-                  }}
-                ></span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#ccc",
-                    borderRadius: "50%",
-                  }}
-                ></span>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#d4a1a1",
-                    borderRadius: "50%",
-                  }}
-                ></span>
+                {["yellow", "white", "rose"].map((color) => (
+                  <span
+                    key={color}
+                    onClick={() => handleColorChange(index, color)}
+                    style={{
+                      display: "inline-block",
+                      width: "20px",
+                      height: "20px",
+                      backgroundColor:
+                        color === "yellow"
+                          ? "#d4af37"
+                          : color === "white"
+                          ? "#ccc"
+                          : "#d4a1a1",
+                      border:
+                        selectedColors[index] === color
+                          ? "2px solid black"
+                          : "1px solid #999",
+                      borderRadius: "50%",
+                      cursor: "pointer",
+                    }}
+                  ></span>
+                ))}
               </div>
               <p>
                 <b>Popularity:</b> {(product.popularityScore * 5).toFixed(1)}/5
