@@ -84,12 +84,13 @@ function App() {
                       display: "inline-block",
                       width: "20px",
                       height: "20px",
+                      padding: "2px",
                       backgroundColor:
                         color === "yellow"
-                          ? "#d4af37"
+                          ? "#E6CA97"
                           : color === "white"
-                          ? "#ccc"
-                          : "#d4a1a1",
+                          ? "#D9D9D9"
+                          : "#E1A4A9",
                       border:
                         selectedColors[index] === color
                           ? "2px solid black"

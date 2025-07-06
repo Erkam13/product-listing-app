@@ -12,6 +12,19 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+body {
+  font-family: 'Avenir', 'Montserrat', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500; /* Medium */
+}
+
+p, span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400; /* Regular */
+}
 
 .App-header {
   background-color: #282c34;
